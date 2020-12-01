@@ -40,7 +40,6 @@ public class ProductRestController extends BaseRestController {
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
 			return elevatedUserResponse;
 		}
-
 		return this.productCreateCommand
 			.setApiProduct(product)
 			.execute();

@@ -3,12 +3,7 @@ package edu.uark.registerapp.models.entities;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Generated;
@@ -53,7 +48,7 @@ public class ProductEntity {
 	}
 
 	@Column(name = "createdon", insertable = false, updatable = false)
-	@Generated(GenerationTime.INSERT)
+//	@Generated(GenerationTime.INSERT)
 	private LocalDateTime createdOn;
 
 	public LocalDateTime getCreatedOn() {
@@ -86,5 +81,10 @@ public class ProductEntity {
     	this.id = new UUID(0, 0);
 		this.count = apiProduct.getCount();
 		this.lookupCode = apiProduct.getLookupCode();
+	}
+
+	@PrePersist
+	void createdAt(){
+		this.createdOn = LocalDateTime.now();
 	}
 }
