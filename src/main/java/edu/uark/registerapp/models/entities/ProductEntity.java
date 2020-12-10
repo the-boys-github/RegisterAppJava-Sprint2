@@ -1,18 +1,14 @@
 package edu.uark.registerapp.models.entities;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
+
 
 import edu.uark.registerapp.models.api.Product;
 
@@ -52,11 +48,11 @@ public class ProductEntity {
 		return this;
 	}
 
-	@Column(name = "createdon", insertable = false, updatable = false)
-	@Generated(GenerationTime.INSERT)
-	private LocalDateTime createdOn;
+	@Column(name = "createdon")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdOn;
 
-	public LocalDateTime getCreatedOn() {
+	public Date getCreatedOn() {
 		return this.createdOn;
 	}
 
@@ -65,7 +61,7 @@ public class ProductEntity {
 		this.setLookupCode(apiProduct.getLookupCode());
 
 		apiProduct.setId(this.getId());
-		apiProduct.setCreatedOn(this.getCreatedOn());
+		apiProduct.setCreatedOn(this.getCreatedOn().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
 		return apiProduct;
 	}
@@ -86,5 +82,10 @@ public class ProductEntity {
     	this.id = new UUID(0, 0);
 		this.count = apiProduct.getCount();
 		this.lookupCode = apiProduct.getLookupCode();
+	}
+
+	@PrePersist
+	void createdAt(){
+		this.createdOn = Calendar.getInstance().getTime();
 	}
 }

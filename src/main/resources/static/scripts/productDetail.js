@@ -131,7 +131,7 @@ function deleteActionClick(event) {
 		deleteActionElement.disabled = false;
 
 		if (isSuccessResponse(callbackResponse)) {
-			window.location.replace("/");
+			window.location.replace("/productListing");
 		}
 	});
 };

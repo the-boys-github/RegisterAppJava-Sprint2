@@ -1,6 +1,7 @@
 package edu.uark.registerapp.models.api;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -75,6 +76,6 @@ public class Product extends ApiResponse {
 		this.count = productEntity.getCount();
 		this.lookupCode = productEntity.getLookupCode();
 
-		this.setCreatedOn(productEntity.getCreatedOn());
+		this.setCreatedOn(productEntity.getCreatedOn().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 	}
 }
