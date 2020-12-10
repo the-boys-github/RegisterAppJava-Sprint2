@@ -53,7 +53,7 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 		if (!employeeEntity.isPresent()
 			|| !Arrays.equals(
 				employeeEntity.get().getPassword(),
-				this.employeeSignIn.getPassword().getBytes())
+				EmployeeHelper.hashPassword(this.employeeSignIn.getPassword()))
 		) {
 
 			throw new UnauthorizedException();
