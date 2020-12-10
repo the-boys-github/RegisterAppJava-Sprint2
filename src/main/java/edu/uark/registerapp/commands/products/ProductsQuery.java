@@ -19,9 +19,6 @@ public class ProductsQuery implements ResultCommandInterface<List<Product>> {
 
 		for (ProductEntity productEntity : productRepository.findAll()) {
 			products.addLast(new Product(productEntity));
-
-			System.out.println(productEntity.getId());
-
 		}
 
 		return products;
