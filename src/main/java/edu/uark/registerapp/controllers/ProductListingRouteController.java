@@ -27,6 +27,7 @@ public class ProductListingRouteController extends BaseRouteController {
 		final HttpServletRequest request
 	) {
 
+		System.out.println("productListing endpoint reached");
 		final Optional<ActiveUserEntity> activeUserEntity =
 			this.getCurrentUser(request);
 		if (!activeUserEntity.isPresent()) {

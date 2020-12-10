@@ -17,10 +17,13 @@ public class ProductsQuery implements ResultCommandInterface<List<Product>> {
 	public List<Product> execute() {
 		final LinkedList<Product> products = new LinkedList<Product>();
 
-		for (final ProductEntity productEntity : productRepository.findAll()) {
+		for (ProductEntity productEntity : productRepository.findAll()) {
 			products.addLast(new Product(productEntity));
+
+			System.out.println(productEntity.getId());
+
 		}
-		
+
 		return products;
 	}
 
